@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/x-icon" href="/static/Media/TaBiB Favicon/favicon-32x32.png">
+  <title>TaBiB &bull; ChatBot</title>
+
+  <link rel="stylesheet" type="text/css" href="/static/index.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/talkify-tts@3.9.2/dist/talkify.min.js"></script>
+  <script src="https://code.responsivevoice.org/responsivevoice.js?key=pswVJGde"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Expletus+Sans:wght@600&display=swap');
+
+    #chatbox {
+      font-size: 13px;
+      height: 465px;
+      position: relative;
+      overflow-y: auto;
+    }
+  </style>
+
+</head>
+
+<body onclick="record()">
+<p class="intro-style" style="float:right;margin-right: 30px;padding:5px 0 0 0;">Coders Clan | 2022 &copy;</p>
+  <div class="content">
+    <div class="content-2">
+
+      <center>
+        <h1 class="intro-style">TaBiB</h1>
+        <h2 class="intro-style">ChatBot with Voice Assistance</h2>
+      </center>
+      <div class="hr"></div>
+      <div id="chatbox">
+        <p class="botText">
+          <span>
+            Hi There! I'm your Virtual Healthcare Assistant.<br>
+            How may I help you!<br>
+            <div class="hr"></div>
+          </span>
+        </p>
+      </div>
+      <div id="userInput">
+        <center><br>
+          <input class="input" id="textInput" type="text" name="msg" placeholder="Enter Your Query Here..." />
+          <img class="microphone" src="/static/Media/ChatBot Background Images/microphone-img.png" onclick="record()" />
+          <input  type="submit" value="Submit" hidden />
+          <button class="button" id="buttonInput" type="submit">Ask!</button>
+        </center>
+      </div>
+
+      <script>
+        function record() {
+          var recognition = new webkitSpeechRecognition();
+          recognition.lang = "en-GB";
+
+          recognition.onresult = function(event) {
+            // console.log(event);
+            document.getElementById('textInput').value = event.results[0][0].transcript;
+          }
+          recognition.start();
+
+        }
+
+        function getBotResponse() {
+          var rawText = $("#textInput").val();
+          var userHtml = '<div class="imessage"><p class="userText from-me"><span style="float:right;">' + rawText + "</span></p></div>";
+          $("#textInput").val("");
+          $("#chatbox").append(userHtml);
+          document
+            .getElementById("userInput")
+            .scrollIntoView({
+              block: "start",
+              behavior: "smooth"
+            });
+          $.get("/get", {
+            msg: rawText
+          }).done(function(data) {
+            var spe = new SpeechSynthesisUtterance();
+            spe.text = data;
+            window.speechSynthesis.speak(spe);
+            var botHtml = '<div class="imessage"><p class="botText from-them"><span style="float:left;">' + data + "</span></p></div>";
+            // Prior to getting your messages.
+            shouldScroll = chatbox.scrollTop + chatbox.clientHeight === chatbox.scrollHeight;
+            $("#chatbox").append(botHtml);
+            document
+              .getElementById("userInput")
+              .scrollIntoView({
+                block: "start",
+                behavior: "smooth"
+              });
+            // After getting your messages.
+            if (!shouldScroll) {
+              scrollToBottom();
+            }
+          });
+
+        }
+
+        function scrollToBottom() {
+          chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        scrollToBottom();
+
+        $("#textInput").keypress(function(e) {
+          if (e.which == 13) {
+            getBotResponse();
+          }
+        });
+        $("#buttonInput").click(function() {
+          getBotResponse();
+        });
+      </script>
+    </div>
+  </div>
+
+
+</body>
+
+</html>

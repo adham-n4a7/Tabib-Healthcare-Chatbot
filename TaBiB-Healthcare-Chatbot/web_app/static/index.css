@@ -1,0 +1,178 @@
+
+body {
+  margin:0;
+  background-color: rgba(255, 255, 255, 0.95);
+  font-family: 'Expletus Sans', cursive;
+  background: url("/static/Media/ChatBot Background Images/chatbot-img-leftside.png") , url("/static/Media/ChatBot Background Images/chatbot-img-right.png");
+  background-position: -15px, 1100px;
+  background-repeat: no-repeat, no-repeat;
+  background-size: 500px, 400px;
+}
+*,:after,:before{box-sizing:border-box}
+.clearfix:after,.clearfix:before{content:'';display:table}
+.clearfix:after{clear:both;display:block}
+
+.content {
+  width:100%;
+  margin: 20px 0 0 500px;
+  background-color: rgba(255, 255, 255, 1);
+  max-width:600px;
+  min-height:750px;
+  position:relative;
+  box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+  border-radius: 5%;
+}
+
+.content-2 {
+  width:100%;
+  height:100%;
+  position:absolute;
+  padding:15px 30px 25px 30px;
+}
+
+.intro-style {
+  font-family: 'Cinzel', serif;
+}
+
+.hr{
+  height:2.5px;
+  margin:25px 0 15px 0;
+  background:rgba(0,0,0,.2);
+}
+
+.input {
+  width:70%;
+  color:#fff;
+  display:block;
+  border:none;
+  outline: none;
+  padding:15px 20px;
+  border-radius:15px;
+  background: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1,              -13px -13px 20px #ffffff;
+  font-family: 'Expletus Sans', cursive;
+  float: left;
+  margin-left: 5px;
+}
+
+.button{
+  width:13%;
+  color: #fff;
+  float: right;
+  margin-right: 7px;
+  border:none;
+  outline: none;
+  padding:15px 18px;
+  border-radius:15px;
+  background: #101010;
+  cursor: pointer;
+  font-family: 'Expletus Sans', cursive;
+}
+.microphone{
+  width: 9%;
+  float: right;
+  cursor: pointer;
+}
+
+::placeholder , input[placeholder] {
+  color: rgba(0, 0, 0, 1.0);
+}
+
+
+/* bot and user bubble css /start */
+.imessage {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+}
+
+.imessage p {
+  border-radius: 1.15rem;
+  line-height: 1.25;
+  max-width: 80%;
+  padding: 0.5rem .875rem;
+  position: relative;
+  word-wrap: break-word;
+}
+
+.imessage p::before,
+.imessage p::after {
+  bottom: -0.1rem;
+  content: "";
+  height: 1rem;
+  position: absolute;
+}
+
+p.from-me {
+  align-self: flex-end;
+  background-color: #248bf5;
+  color: #fff;
+}
+
+p.from-me::before {
+  border-bottom-left-radius: 0.8rem 0.7rem;
+  border-right: 1rem solid #248bf5;
+  right: -0.35rem;
+  transform: translate(0, -0.1rem);
+}
+
+p.from-me::after {
+  background-color: #fff;
+  border-bottom-left-radius: 0.5rem;
+  right: -40px;
+  transform:translate(-30px, -2px);
+  width: 10px;
+}
+
+p[class^="from-"] {
+  margin: 0.2rem 0;
+  width: fit-content;
+}
+
+p.from-me ~ p.from-me {
+  margin: 0.1rem 0 0;
+}
+
+p.from-me ~ p.from-me:not(:last-child) {
+  margin: 0.1rem 0 0;
+}
+
+p.from-me ~ p.from-me:last-child {
+  margin-bottom: 0.1rem;
+}
+
+p.from-them {
+  align-items: flex-start;
+  background-color: #e5e5ea;
+  color: #000;
+  width: fit-content;
+}
+
+p.from-them:before {
+  border-bottom-right-radius: 0.8rem 0.7rem;
+  border-left: 1rem solid #e5e5ea;
+  left: -0.35rem;
+  transform: translate(0, -0.1rem);
+}
+
+p.from-them::after {
+  background-color: #fff;
+  border-bottom-right-radius: 0.5rem;
+  left: 20px;
+  transform: translate(-30px, -2px);
+  width: 10px;
+}
+
+@media screen and (max-width: 800px) {
+  .imessage {
+    font-size: 1.05rem;
+    margin: 0 auto 0.5rem;
+    max-width: 500px;
+    padding: 0.25rem 0.875rem;
+  }
+
+  .imessage p {
+    margin: 0.1rem 0;
+  }
+}
+/* bot and user bubble css /end */
